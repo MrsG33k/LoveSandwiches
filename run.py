@@ -13,7 +13,6 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('love_sandwiches')
 
 def get_sales_data():
-    
     """
     Get sales figures input from the user
     """
@@ -52,4 +51,16 @@ def validate_data(values):
 
     return True
 
+def update_sales_worsheet(data):
+    """
+    update sales worksheet, add new rowwith the list data prvided.
+    """
+    print("Updating sales worsheet....\n")
+    sales_worksheet = SHEET.worksheet("sales")
+    sales_worksheet.append_row(data)
+    print("Sales worksheet updated successfully.\n")
+
+
 data = get_sales_data()
+sales_data = [int(num) for num in data]
+update_sales_worsheet(sales_data)
